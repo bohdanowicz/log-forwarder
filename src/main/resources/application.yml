@@ -1,0 +1,9 @@
+example:
+  logs:
+    kafka:
+      topic: example.logs.v1
+
+spring:
+  kafka:
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

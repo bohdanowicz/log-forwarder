@@ -1,0 +1,20 @@
+[
+  {
+    "applicationID": "twill_booking_service",
+    "traceId": "random123",
+    "severity": "WARN",
+    "timestamp": 1678952952,
+    "message": "Sth irritating happen.",
+    "componentName": "",
+    "requestId": "request_123"
+  },
+  {
+    "applicationID": "twill_pricing_service",
+    "traceId": "random124",
+    "severity": "WARN",
+    "timestamp": 1678952953,
+    "message": "Sth irritating happen.",
+    "componentName": "",
+    "requestId": "request_124"
+  }
+]
