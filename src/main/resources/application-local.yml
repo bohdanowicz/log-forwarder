@@ -4,9 +4,3 @@ spring:
       uri: mongodb://localhost/local_logforwarder
   kafka:
     bootstrap-servers: localhost:9092
-    consumer:
-      auto-offset-reset: earliest
-      group-id: example-group
-logging:
-  level:
-    com.example: DEBUG
