@@ -32,7 +32,6 @@ public class LogController {
     @PostMapping("/batch")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void forwardLogs(@RequestBody @Valid List<LogEntry> logEntries) {
-        logEntries.stream()
-                .forEach(logForwardingService::forwardLogEntry);
+        logEntries.forEach(logForwardingService::forwardLogEntry);
     }
 }

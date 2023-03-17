@@ -10,7 +10,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -24,6 +23,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.example.logs.forwarding.destination.DBLogEntry;
 import com.example.logs.forwarding.utils.TestKafkaConsumer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 
@@ -39,6 +39,9 @@ class LogForwarderApplicationIT {
 
     @Autowired
     WebApplicationContext applicationContext;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     @BeforeEach
     void setup() {
@@ -87,7 +90,7 @@ class LogForwarderApplicationIT {
     }
 
     @Test
-    void shouldForwardLogMultipleLogEntriesIntoAvailableChannels() throws InterruptedException, JSONException {
+    void shouldForwardLogMultipleLogEntriesIntoAvailableChannels() throws InterruptedException {
         final var requestBody = classpathFileToString("requests/multipleLogsRequest.json");
         kafkaConsumer.setLatch(new CountDownLatch(2));
         given()
@@ -126,7 +129,27 @@ class LogForwarderApplicationIT {
 
         boolean messageConsumed = kafkaConsumer.getLatch().await(1, TimeUnit.SECONDS);
         assertTrue(messageConsumed);
-        assertThat(kafkaConsumer.getRecords()).hasSize(2);
+        assertThat(kafkaConsumer.getRecords()).hasSize(2)
+                .map(consumerRecord -> objectMapper.readValue((String) consumerRecord.value(), LogEntry.class))
+                .containsExactlyInAnyOrder(
+                        new LogEntry(
+                                "twill_booking_service",
+                                "random123",
+                                "WARN",
+                                1678952952l,
+                                "Sth irritating happen.",
+                                "",
+                                "request_123"
+                        ),
+                        new LogEntry(
+                                "twill_pricing_service",
+                                "random124",
+                                "WARN",
+                                1678952953l,
+                                "Sth irritating happen.",
+                                "",
+                                "request_124"
+                        )
+                );
     }
-
 }

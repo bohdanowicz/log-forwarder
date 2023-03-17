@@ -7,9 +7,11 @@ import org.springframework.stereotype.Component;
 import com.example.logs.forwarding.LogEntry;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 class MongoLogChannel implements LogChannel {
 
     private final MongoTemplate mongoTemplate;
@@ -26,5 +28,6 @@ class MongoLogChannel implements LogChannel {
                         .componentName(logEntry.componentName())
                         .requestId(logEntry.requestId())
                         .build());
+        log.debug("LogEntry [{}] pushed to mongo.", logEntry);
     }
 }
