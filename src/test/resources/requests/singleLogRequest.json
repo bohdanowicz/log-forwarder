@@ -1,0 +1,9 @@
+{
+  "applicationID": "twill_booking_service",
+  "traceId": "random123",
+  "severity": "WARN",
+  "timestamp": 1678952952,
+  "message": "Sth irritating happen.",
+  "componentName": "",
+  "requestId": "request_123"
+}

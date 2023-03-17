@@ -1,0 +1,7 @@
+embedded:
+  kafka:
+    enabled: true
+    topicsToCreate:
+      - example.logs.v1
+  mongodb:
+    enabled: true

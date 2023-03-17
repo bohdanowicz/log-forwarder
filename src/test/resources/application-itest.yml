@@ -1,0 +1,16 @@
+spring:
+  kafka:
+    bootstrap-servers: ${embedded.kafka.saslPlaintext.brokerList}
+    consumer:
+      auto-offset-reset: earliest
+      group-id: example-group
+    properties:
+      security:
+        protocol: SASL_PLAINTEXT
+      sasl:
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username= "${embedded.kafka.saslPlaintext.user}" password= "${embedded.kafka.saslPlaintext.password}";
+  data:
+    mongodb:
+      uri: mongodb://${embedded.mongodb.host}:${embedded.mongodb.port}/${embedded.mongodb.database}
