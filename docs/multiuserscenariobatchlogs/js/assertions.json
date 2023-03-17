@@ -1,0 +1,10 @@
+{
+  "simulation": "com.example.logs.forwarding.load.MultiUserScenarioBatchLogs",
+  "simulationId": "multiuserscenariobatchlogs-20230317160148049",
+  "start": 1679068910706,
+  "description": "",
+  "scenarios": ["Load Test Forwarding Logs"],
+  "assertions": [
+
+  ]
+}

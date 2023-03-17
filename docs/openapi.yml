@@ -1,0 +1,65 @@
+---
+openapi: "3.0.1"
+info:
+  title: "OpenAPI definition"
+  version: "v0"
+servers:
+- url: "http://localhost"
+  description: "Generated server url"
+paths:
+  /api/logs:
+    post:
+      tags:
+      - "log-controller"
+      operationId: "forwardLog"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LogEntry"
+        required: true
+      responses:
+        "204":
+          description: "No Content"
+  /api/logs/batch:
+    post:
+      tags:
+      - "log-controller"
+      operationId: "forwardLogs"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/LogEntry"
+        required: true
+      responses:
+        "204":
+          description: "No Content"
+components:
+  schemas:
+    LogEntry:
+      required:
+      - "applicationID"
+      - "message"
+      - "severity"
+      - "timestamp"
+      - "traceId"
+      type: "object"
+      properties:
+        applicationID:
+          type: "string"
+        traceId:
+          type: "string"
+        severity:
+          type: "string"
+        timestamp:
+          type: "integer"
+          format: "int64"
+        message:
+          type: "string"
+        componentName:
+          type: "string"
+        requestId:
+          type: "string"

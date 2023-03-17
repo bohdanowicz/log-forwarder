@@ -1,0 +1,10 @@
+{
+  "simulation": "com.example.logs.forwarding.load.MultiUserScenarioOneLog",
+  "simulationId": "multiuserscenarioonelog-20230317160319569",
+  "start": 1679069001278,
+  "description": "",
+  "scenarios": ["Load Test Forwarding Logs"],
+  "assertions": [
+
+  ]
+}
